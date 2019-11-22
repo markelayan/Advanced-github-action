@@ -37,7 +37,7 @@ jobs:
           AWS_ACCESS_KEY_ID:              # Required: Your AWS Access key https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys
           AWS_SECRET_ACCESS_KEY:          # Required: Your AWS Secret key
           AWS_REGION: '#######'   # optional: defaults to us-east-1
-          SOURCE_DIR: 'v'      # optional: folder ot file you want to sync defaults to entire repository
+          SOURCE_DIR: 'v'      # optional: folder or file you want to sync defaults to entire repository
 
       - name: Use Node.js 10.14.1         # These configurations will use NodeJs 10.14.1 you can change the version in node-version
         uses: actions/setup-node@v1
@@ -58,7 +58,7 @@ jobs:
           AWS_ACCESS_KEY_ID:              # Required: Your AWS Access key https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys
           AWS_SECRET_ACCESS_KEY:          # Required: Your AWS Secret key
           AWS_REGION: '#######'   # optional: defaults to us-east-1
-          SOURCE_DIR: '$$$$$$$'      # optional: folder ot file you want to sync defaults to entire repository
+          SOURCE_DIR: '$$$$$$$'      # optional: folder or file you want to sync defaults to entire repository
 
 ```
 
