@@ -9,6 +9,59 @@ This has been created by merging multiple repos, so the thanks is for them :)
 
 #Crdits https://github.com/jakejarvis/s3-sync-action
 
+
+
+### EXAMPLE:
+
+
+```name: Build and Upload dev
+
+on:
+  push:
+    branches:
+    - developer           # name of the branch you need to build/upload
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Zip Folder
+        run: mkdir v && zip -r ./v/"$(date +"%Y-%m-%d %H-%M-%S").zip" .       # your can change the name of the zip file, it is now named as the todays date and placed in a directory called v.
+      
+      - name: Upload zipfile to S3
+        uses: jakejarvis/s3-sync-action@v0.5.0
+
+        env:
+          AWS_S3_BUCKET: ######           # Required: Your S3 Bucket NAME not ARN
+          AWS_ACCESS_KEY_ID:              # Required: Your AWS Access key https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys
+          AWS_SECRET_ACCESS_KEY:          # Required: Your AWS Secret key
+          AWS_REGION: '#######'   # optional: defaults to us-east-1
+          SOURCE_DIR: 'v'      # optional: folder ot file you want to sync defaults to entire repository
+
+      - name: Use Node.js 10.14.1         # These configurations will use NodeJs 10.14.1 you can change the version in node-version
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.14.1 
+      - name: Installing dependencies
+        run: npm install
+
+      - name: Building the Application
+        run: npm run build
+
+      - name: Upload to S3
+        uses: jakejarvis/s3-sync-action@v0.5.0
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ######           # Required: Your S3 Bucket NAME not ARN
+          AWS_ACCESS_KEY_ID:              # Required: Your AWS Access key https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys
+          AWS_SECRET_ACCESS_KEY:          # Required: Your AWS Secret key
+          AWS_REGION: '#######'   # optional: defaults to us-east-1
+          SOURCE_DIR: '$$$$$$$'      # optional: folder ot file you want to sync defaults to entire repository
+
+```
+
 ### Configuration
 
 The following settings must be passed as environment variables as shown in the example. Sensitive information, especially `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, should be [set as encrypted secrets](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables) — otherwise, they'll be public to anyone browsing your repository's source code and CI logs.
