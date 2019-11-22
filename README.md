@@ -1,5 +1,8 @@
-# Advanced GitHub Action to create backup zip from repo & build NPM project & Sync it to S3 with the ZIP file
+# Advanced GitHub Actions
 
+Advanced GitHub Action file to create backup zip from repo & build NPM project & Sync it to S3 with the ZIP file.
+
+This has been created by merging multiple repos, so the thanks is for them :)
 
 
 # GitHub Action to Sync S3 Bucket 🔄
